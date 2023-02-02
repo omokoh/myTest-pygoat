@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  # skip the CodeQL decorator task injection
+  # Codeql.SkipTaskAutoInjection: true
+  # skip the Component Governace decorator task injection
+  # skipComponentGovernanceDetection: true
+  # supported languages - csharp, cpp, go, java, javascript, python, ruby, swift
+  advancedsecurity.codeql.language: python
+  # advancedsecurity.codeql.logLevel: 2
+  # advancedsecurity.codeql.debug: true
+
+steps:
+- task: AdvancedSecurity-Codeql-Init@1
+  displayName: Initialize CodeQL
+
+- task: AdvancedSecurity-Codeql-Autobuild-PPE@1
+  displayName: Autobuild
+
+- task: AdvancedSecurity-Codeql-Analyze@1
+  displayName: Perform CodeQL Analysis
